@@ -1,0 +1,23 @@
+version: '2'
+services:
+  mongo-visage:
+    image: mongo:latest
+    volumes:
+      - /data/db
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+
+  mongo-bi-connector:
+    build: .
+    ports:
+      - 9015:3307
+    depends_on:
+      - mongo-visage
+    links:
+      - mongo-visage
+    environment:
+      - DB_NAME=visage
+      - MONGO_HOST=mongo-visage
+      - MONGO_PORT=27017  
