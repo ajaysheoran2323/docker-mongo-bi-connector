@@ -4,11 +4,11 @@ services:
     image: mongo:latest
     volumes:
       - /data/db
+      - ./dump:/dump
     expose:
       - "27017"
     ports:
-      - "27018:27017"
-    command: "mongorestore <dumpFileName>"
+      - "27017:27017"
 
   mongo-bi:
     build: .
